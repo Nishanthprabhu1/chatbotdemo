@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Demo</title>
+</head>
+<body>
+    <input type="text" id="userInput" placeholder="Type your message here">
+    <button onclick="handleSend()">Send</button>
+    <div id="responseArea"></div>
+
+    <script>
+        async function handleSend() {
+            const input = document.getElementById('userInput').value;
+            const webAppUrl = "https://script.google.com/macros/s/AKfycbzQFwirrYJHNeIeRV24UzyNzvwLFJ93C9v5xfKkR9vTHsaoB7hawvjXL8IoWfMSPcw/exec";
+            
+            const response = await fetch(webAppUrl, {
+                method: 'POST',
+                body: JSON.stringify({ message: input }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            document.getElementById('responseArea').innerText = data.reply;
+        }
+    </script>
+</body>
+</html>
